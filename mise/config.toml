@@ -1,0 +1,11 @@
+[tools]
+node = "22"
+python = "3.14"
+uv = "latest"
+gh = "latest"
+glab = "latest"
+starship = "latest"
+task = "latest"
+bun = "latest"
+opencode = "latest"
+copilot = "latest"
