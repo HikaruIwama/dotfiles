@@ -1,0 +1,20 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~', '~/.agents/skills', '~/.claude/skills']
+
+- link:
+    ~/.agents/AGENTS.md: agents/AGENTS.md
+    ~/.agents/skills/:
+      glob: true
+      path: agents/skills/*
+    ~/.gitconfig: git/.gitconfig
+    ~/.config/starship.toml: starship/starship.toml
+    ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1: powershell/Microsoft.PowerShell_profile.ps1
+    ~/.claude/CLAUDE.md: claude/CLAUDE.md
+    ~/.claude/skills/:
+      glob: true
+      path: claude/skills/*
+    ~/.codex/AGENTS.md: codex/AGENTS.md
