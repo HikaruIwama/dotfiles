@@ -11,8 +11,9 @@ cd dotfiles
 winget import -i winget/packages.json
 ```
 
-新しいターミナルを開き、dotfilesディレクトリで実行する。
+新しいターミナルを開き、`dotfiles`ディレクトリで実行する。
 
 ```powershell
-./install.ps1
+mise trust
+mise bootstrap
 ```
