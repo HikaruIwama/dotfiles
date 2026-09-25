@@ -1,0 +1,17 @@
+[settings]
+experimental = true
+dotfiles.root = "."
+
+[dotfiles]
+"~/.agents/AGENTS.md" = "agents/AGENTS.md"
+"~/.agents/skills/*" = "agents/skills/*"
+"~/.gitconfig" = "git/.gitconfig"
+"~/.config/starship.toml" = "starship/starship.toml"
+"~/.config/mise/config.toml" = "mise/config.toml"
+"~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1" = "powershell/Microsoft.PowerShell_profile.ps1"
+"~/.claude/CLAUDE.md" = "claude/CLAUDE.md"
+"~/.claude/skills/*" = "claude/skills/*"
+"~/.codex/AGENTS.md" = "codex/AGENTS.md"
+
+[tasks.bootstrap]
+run = "pwsh -NoProfile -File scripts/add-mise-shims-to-path.ps1"
