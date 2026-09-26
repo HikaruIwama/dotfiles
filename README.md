@@ -1,8 +1,20 @@
 # dotfiles
 
-## セットアップ
+## Linux（Ubuntu/Debian）
 
-前提：Windowsの開発者モード有効
+```sh
+sudo apt-get update
+sudo apt-get install -y git curl
+git clone git@github.com:HikaruIwama/dotfiles.git
+cd dotfiles
+curl -fsSL https://mise.run | sh
+~/.local/bin/mise trust
+~/.local/bin/mise bootstrap
+```
+
+## Windows
+
+開発者モードを有効にする。
 
 ```powershell
 winget install --id Git.Git -e
