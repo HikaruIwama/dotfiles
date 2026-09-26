@@ -16,34 +16,35 @@ footer
 - `body`：任意。変更の理由や背景。
 - `footer`：任意。BREAKING CHANGEやissue参照。
 
+メッセージは原則として英語で書く。直近のコミットが日本語中心なら日本語に合わせる。
+
 ## type一覧
 
 | type | 用途 | 例 |
 | --- | --- | --- |
-| `feat` | 新機能 | `feat(auth): ログイン機能を追加` |
-| `fix` | バグ修正 | `fix(api): ユーザー取得時のnull参照を修正` |
-| `docs` | ドキュメントのみ | `docs: READMEにセットアップ手順を追加` |
-| `style` | コードの意味に影響しない変更 | `style: インデントをスペース2に統一` |
-| `refactor` | リファクタリング | `refactor(core): 共通処理をutilsに切り出し` |
-| `perf` | パフォーマンス改善 | `perf(db): クエリのN+1問題を解消` |
-| `test` | テストの追加・修正 | `test(auth): ログイン失敗時のテストを追加` |
-| `build` | ビルドシステムや依存関係 | `build(deps): reactを18.2.0に更新` |
-| `ci` | CI設定 | `ci: GitHub Actionsのワークフローを追加` |
-| `chore` | その他の雑多な変更 | `chore: .gitignoreにtmp/を追加` |
+| `feat` | 新機能 | `feat(auth): add login support` |
+| `fix` | バグ修正 | `fix(api): handle null user responses` |
+| `docs` | ドキュメントのみ | `docs: add setup instructions to README` |
+| `style` | コードの意味に影響しない変更 | `style: use two-space indentation` |
+| `refactor` | リファクタリング | `refactor(core): extract shared utilities` |
+| `perf` | パフォーマンス改善 | `perf(db): eliminate N+1 queries` |
+| `test` | テストの追加・修正 | `test(auth): cover failed logins` |
+| `build` | ビルドシステムや依存関係 | `build(deps): update react to 18.2.0` |
+| `ci` | CI設定 | `ci: add GitHub Actions workflow` |
+| `chore` | その他の雑多な変更 | `chore: ignore tmp directory` |
 
 ## subjectの書き方
 
-- 日本語OK。英語でもよい。
-- 命令形または動詞の連体形で始める。「追加する」「修正する」「更新する」など。
+- 英語では命令形、日本語では動詞の連体形で始める。
 - 50文字以内。
 - 末尾にピリオド（`.`）や句点（`。`）を付けない。
 - 「バグ修正」だけのような曖昧な表現にしない。何をどう変えたかが1文でわかるようにする。
 
 良い例：
 
-- `feat(auth): パスワードリセット機能を追加`
-- `fix(api): ユーザーIDが0のときにエラーになる問題を修正`
-- `refactor(ui): ボタンコンポーネントのpropsを整理`
+- `feat(auth): add password reset support`
+- `fix(api): handle user ID 0`
+- `refactor(ui): simplify button props`
 
 悪い例：
 
@@ -62,10 +63,9 @@ subjectだけでは理由が伝わらない場合に書く。
 例：
 
 ```text
-fix(api): ユーザーIDが0のときにエラーになる問題を修正
+fix(api): handle user ID 0
 
-ユーザーIDに0を許可するバリデーションが抜けていた。
-本番データにID=0のユーザーが存在するため、修正が必要。
+Validation rejected user ID 0, which exists in production data.
 ```
 
 ## footerの書き方
@@ -76,8 +76,8 @@ fix(api): ユーザーIDが0のときにエラーになる問題を修正
 例：
 
 ```text
-feat(api)!: レスポンス形式をv2に変更
+feat(api)!: update response format to v2
 
-BREAKING CHANGE: ユーザー情報のレスポンスからemailフィールドを削除
+BREAKING CHANGE: remove email from user responses
 Closes #456
 ```
