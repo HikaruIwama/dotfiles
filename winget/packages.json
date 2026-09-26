@@ -11,7 +11,8 @@
       "Packages": [
         { "PackageIdentifier": "Git.Git" },
         { "PackageIdentifier": "jdx.mise" },
-        { "PackageIdentifier": "Microsoft.PowerShell" }
+        { "PackageIdentifier": "Microsoft.PowerShell" },
+        { "PackageIdentifier": "wez.wezterm" }
       ]
     }
   ]
