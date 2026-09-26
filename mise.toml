@@ -9,18 +9,7 @@ dotfiles.root = "."
 "~/.agents/skills/*" = "agents/skills/*"
 "~/.gitconfig" = "git/.gitconfig"
 "~/.config/starship.toml" = "starship/starship.toml"
-"~/.wezterm.lua" = "wezterm/wezterm.lua"
 "~/.config/mise/config.toml" = "mise/config.toml"
-"~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1" = "powershell/Microsoft.PowerShell_profile.ps1"
 "~/.claude/CLAUDE.md" = "claude/CLAUDE.md"
 "~/.claude/skills/*" = "claude/skills/*"
 "~/.codex/AGENTS.md" = "codex/AGENTS.md"
-
-[bootstrap.hooks.pre-dotfiles]
-run = "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1"
-
-[bootstrap.hooks.post-dotfiles]
-run = "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1 -Verify"
-
-[tasks.bootstrap]
-run = "pwsh -NoProfile -File scripts/add-mise-shims-to-path.ps1"

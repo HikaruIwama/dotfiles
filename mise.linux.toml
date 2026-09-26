@@ -1,0 +1,8 @@
+[bootstrap.packages]
+"apt:zsh" = "latest"
+
+[dotfiles]
+"~/.zshrc" = "zsh/.zshrc"
+
+[bootstrap.user]
+login_shell = "/usr/bin/zsh"

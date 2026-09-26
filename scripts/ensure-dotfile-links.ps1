@@ -3,7 +3,10 @@ param([switch]$Verify)
 $ErrorActionPreference = 'Stop'
 
 $root = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
-$configPath = Join-Path $root 'mise.toml'
+$configPaths = @(
+    (Join-Path $root 'mise.toml'),
+    (Join-Path $root 'mise.windows.toml')
+)
 $homePrefix = [IO.Path]::GetFullPath($env:USERPROFILE).TrimEnd([char[]]@('\', '/')) + '\'
 $rootPrefix = [IO.Path]::GetFullPath($root).TrimEnd([char[]]@('\', '/')) + '\'
 
@@ -12,7 +15,7 @@ if ($LASTEXITCODE -ne 0) { throw 'mise dotfiles status failed' }
 $status = $statusJson | Out-String | ConvertFrom-Json
 $entries = @($status.files | Where-Object {
     $_.mode -eq 'symlink' -and
-    [IO.Path]::GetFullPath($_.origin.config).Equals($configPath, [StringComparison]::OrdinalIgnoreCase)
+    ($configPaths -contains [IO.Path]::GetFullPath($_.origin.config))
 })
 if ($entries.Count -eq 0) { throw 'No symlink dotfiles found in this repository' }
 
