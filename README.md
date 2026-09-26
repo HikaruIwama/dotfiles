@@ -9,7 +9,7 @@ git clone git@github.com:HikaruIwama/dotfiles.git
 cd dotfiles
 curl -fsSL https://mise.run | sh
 ~/.local/bin/mise trust
-~/.local/bin/mise bootstrap
+~/.local/bin/mise bootstrap --update
 ```
 
 ## Windows

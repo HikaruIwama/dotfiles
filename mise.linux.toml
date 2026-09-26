@@ -1,5 +1,20 @@
 [bootstrap.packages]
 "apt:zsh" = "latest"
+"apt:docker-ce" = "latest"
+"apt:docker-ce-cli" = "latest"
+"apt:containerd.io" = "latest"
+"apt:docker-buildx-plugin" = "latest"
+"apt:docker-compose-plugin" = "latest"
+
+[bootstrap.services.docker]
+state = "running"
+enabled = true
+
+[bootstrap.hooks.pre-packages]
+run = "bash \"{{ config_root }}/scripts/setup-docker-linux.sh\" prepare"
+
+[bootstrap.hooks.post-packages]
+run = "bash \"{{ config_root }}/scripts/setup-docker-linux.sh\" post"
 
 [dotfiles]
 "~/.zshrc" = "zsh/.zshrc"
