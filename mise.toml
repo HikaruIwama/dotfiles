@@ -1,3 +1,5 @@
+min_version = "2026.9.5"
+
 [settings]
 experimental = true
 dotfiles.root = "."
@@ -13,6 +15,12 @@ dotfiles.root = "."
 "~/.claude/CLAUDE.md" = "claude/CLAUDE.md"
 "~/.claude/skills/*" = "claude/skills/*"
 "~/.codex/AGENTS.md" = "codex/AGENTS.md"
+
+[bootstrap.hooks.pre-dotfiles]
+run = "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1"
+
+[bootstrap.hooks.post-dotfiles]
+run = "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1 -Verify"
 
 [tasks.bootstrap]
 run = "pwsh -NoProfile -File scripts/add-mise-shims-to-path.ps1"
