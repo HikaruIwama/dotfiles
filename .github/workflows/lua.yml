@@ -3,7 +3,23 @@ name: Lua
 on:
   push:
     branches: [main]
+    paths:
+      - '**.lua'
+      - .luarc.json
+      - .stylua.toml
+      - mise.toml
+      - .gitignore
+      - .gitattributes
+      - .github/workflows/lua.yml
   pull_request:
+    paths:
+      - '**.lua'
+      - .luarc.json
+      - .stylua.toml
+      - mise.toml
+      - .gitignore
+      - .gitattributes
+      - .github/workflows/lua.yml
 
 permissions:
   contents: read
