@@ -8,6 +8,9 @@ lua-language-server = "3.19.1"
 experimental = true
 dotfiles.root = "."
 
+[bootstrap.hooks.post-tools]
+run = "mise exec -- playwright install chromium"
+
 [tasks.format-lua]
 run = "stylua --allow-hidden ."
 
