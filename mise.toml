@@ -1,8 +1,21 @@
 min_version = "2026.9.5"
 
+[tools]
+stylua = "2.5.2"
+lua-language-server = "3.19.1"
+
 [settings]
 experimental = true
 dotfiles.root = "."
+
+[tasks.format-lua]
+run = "stylua wezterm/wezterm.lua"
+
+[tasks.lint-lua]
+run = [
+  "stylua --check wezterm/wezterm.lua",
+  "lua-language-server --check=wezterm --configpath=.luarc.json --check_format=pretty --logpath=.cache/lua-language-server/log --metapath=.cache/lua-language-server/meta",
+]
 
 [dotfiles]
 "~/.agents/AGENTS.md" = "agents/AGENTS.md"
