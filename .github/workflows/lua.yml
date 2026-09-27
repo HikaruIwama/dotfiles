@@ -36,6 +36,7 @@ jobs:
       - uses: jdx/mise-action@v4
         with:
           version: "2026.9.14"
+          cache_key_prefix: mise-lua-v1
       - name: Format
         run: mise run check-format-lua
       - name: Lint
