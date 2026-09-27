@@ -27,6 +27,8 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      MISE_IGNORED_CONFIG_PATHS: ${{ github.workspace }}/mise/config.toml
     steps:
       - uses: actions/checkout@v7
         with:
