@@ -11,11 +11,11 @@ dotfiles.root = "."
 [tasks.format-lua]
 run = "stylua wezterm/wezterm.lua"
 
+[tasks.check-format-lua]
+run = "stylua --check wezterm/wezterm.lua"
+
 [tasks.lint-lua]
-run = [
-  "stylua --check wezterm/wezterm.lua",
-  "lua-language-server --check=wezterm --configpath=.luarc.json --check_format=pretty --logpath=.cache/lua-language-server/log --metapath=.cache/lua-language-server/meta",
-]
+run = "lua-language-server --check=wezterm --configpath=.luarc.json --check_format=pretty --logpath=.cache/lua-language-server/log --metapath=.cache/lua-language-server/meta"
 
 [dotfiles]
 "~/.agents/AGENTS.md" = "agents/AGENTS.md"
