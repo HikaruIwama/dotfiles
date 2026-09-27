@@ -22,7 +22,7 @@ if ($entries.Count -eq 0) { throw 'No symlink dotfiles found in this repository'
 if (-not $Verify) {
     $probe = Join-Path $env:TEMP ('.dotfiles-link-probe-' + [guid]::NewGuid().ToString('N'))
     try {
-        $link = New-Item -ItemType SymbolicLink -Path $probe -Target $configPath -ErrorAction Stop
+        $link = New-Item -ItemType SymbolicLink -Path $probe -Target $configPaths[0] -ErrorAction Stop
         if ($link.LinkType -ne 'SymbolicLink') { throw 'Windows did not create a symbolic link' }
     } finally {
         if (Test-Path -LiteralPath $probe) { Remove-Item -LiteralPath $probe -Force }
