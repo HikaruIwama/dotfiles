@@ -3,13 +3,17 @@ min_version = "2026.9.5"
 [tools]
 "aqua:JohnnyMorganz/StyLua" = "2.5.2"
 "aqua:LuaLS/lua-language-server" = "3.19.1"
+"aqua:evilmartians/lefthook" = "2.1.14"
 
 [settings]
 experimental = true
 dotfiles.root = "."
 
 [bootstrap.hooks.post-tools]
-run = "mise exec -- playwright install chromium"
+run = [
+  "mise exec -- playwright install chromium",
+  "mise exec -- lefthook install",
+]
 
 [tasks.format-lua]
 run = "stylua --allow-hidden ."

@@ -1,0 +1,6 @@
+pre-push:
+  jobs:
+    - name: check-format-lua
+      run: mise run check-format-lua
+    - name: lint-lua
+      run: mise run lint-lua
