@@ -19,6 +19,7 @@ run = "bash \"{{ config_root }}/scripts/setup-docker-linux.sh\" post"
 [dotfiles]
 "~/.zshrc" = "zsh/.zshrc"
 "~/.config/nvim/init.lua" = "nvim/init.lua"
+"~/.config/nvim/lua" = "nvim/lua"
 
 [bootstrap.user]
 login_shell = "/usr/bin/zsh"
