@@ -9,11 +9,9 @@ return {
     { "<leader>fc", "<cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Search current buffer" },
   },
   opts = {
-    pickers = {
-      current_buffer_fuzzy_find = {
-        sorting_strategy = "ascending",
-        layout_config = { prompt_position = "top" },
-      },
+    defaults = {
+      sorting_strategy = "ascending",
+      layout_config = { prompt_position = "top" },
     },
   },
 }
