@@ -1,7 +1,6 @@
 [dotfiles]
 "~/.wezterm.lua" = "wezterm/wezterm.lua"
-"~/AppData/Local/nvim/init.lua" = "nvim/init.lua"
-"~/AppData/Local/nvim/lua" = "nvim/lua"
+"~/AppData/Local/nvim" = "nvim"
 "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1" = "powershell/Microsoft.PowerShell_profile.ps1"
 
 [bootstrap.hooks.pre-dotfiles]
