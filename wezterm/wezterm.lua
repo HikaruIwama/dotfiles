@@ -45,7 +45,16 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     foreground = "#FFFFFF"
   end
 
-  local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
+  local label = tab.active_pane.title
+  local pane_count = #wezterm.mux.get_tab(tab.tab_id):panes()
+  if pane_count > 1 then
+    label = label .. " [" .. pane_count .. "]"
+  end
+  if tab.active_pane.is_zoomed then
+    label = "🔍 " .. label
+  end
+
+  local title = "   " .. wezterm.truncate_right(label, max_width - 1) .. "   "
 
   return {
     { Background = { Color = background } },
