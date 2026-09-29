@@ -7,7 +7,10 @@
 run = "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1"
 
 [bootstrap.hooks.post-dotfiles]
-run = "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1 -Verify"
+run = [
+  "pwsh -NoProfile -File scripts/ensure-dotfile-links.ps1 -Verify",
+  "pwsh -NoProfile -File scripts/install-plemoljp.ps1",
+]
 
 [tasks.bootstrap]
 run = "pwsh -NoProfile -File scripts/add-mise-shims-to-path.ps1"

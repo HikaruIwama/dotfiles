@@ -2,6 +2,9 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 
 local config = wezterm.config_builder()
+config.font_dirs = { wezterm.home_dir .. "/AppData/Local/Microsoft/Windows/Fonts" }
+config.font = wezterm.font("PlemolJP Console", { weight = "Medium" })
+config.font_size = 12.0
 config.default_prog = { "pwsh.exe" }
 config.default_cwd = "C:\\dev"
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
