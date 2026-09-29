@@ -21,7 +21,29 @@ config.colors = {
   split = "#1476b8",
 }
 
+local agents = {
+  { id = "claude", label = "Claude Code" },
+  { id = "codex", label = "Codex" },
+  { id = "opencode", label = "opencode" },
+  { id = "copilot", label = "GitHub Copilot" },
+}
+
+local launch_agent = act.InputSelector({
+  title = "Launch agent",
+  choices = agents,
+  action = wezterm.action_callback(function(window, pane, id)
+    if not id then
+      return
+    end
+    window:perform_action(
+      act.SplitPane({ direction = "Right", size = { Percent = 40 }, command = { args = { id } } }),
+      pane
+    )
+  end),
+})
+
 config.keys = {
+  { key = "a", mods = "ALT", action = launch_agent },
   { key = "v", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "-", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
