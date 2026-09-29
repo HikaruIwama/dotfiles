@@ -16,6 +16,10 @@ config.window_background_gradient = {
   colors = { "#000000" },
 }
 
+config.colors = {
+  split = "#1476b8",
+}
+
 config.keys = {
   { key = "v", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "-", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
