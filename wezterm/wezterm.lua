@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 local config = wezterm.config_builder()
 config.default_prog = { "pwsh.exe" }
@@ -13,6 +14,22 @@ config.window_frame = {
 
 config.window_background_gradient = {
   colors = { "#000000" },
+}
+
+config.keys = {
+  { key = "v", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  { key = "-", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
+  { key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
+  { key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
+  { key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
+  { key = "H", mods = "ALT|SHIFT", action = act.AdjustPaneSize({ "Left", 5 }) },
+  { key = "J", mods = "ALT|SHIFT", action = act.AdjustPaneSize({ "Down", 5 }) },
+  { key = "K", mods = "ALT|SHIFT", action = act.AdjustPaneSize({ "Up", 5 }) },
+  { key = "L", mods = "ALT|SHIFT", action = act.AdjustPaneSize({ "Right", 5 }) },
+  { key = "z", mods = "ALT", action = act.TogglePaneZoomState },
+  { key = "x", mods = "ALT", action = act.CloseCurrentPane({ confirm = true }) },
+  { key = "s", mods = "ALT", action = act.PaneSelect },
 }
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
