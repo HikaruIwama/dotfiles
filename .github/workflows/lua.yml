@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
       - uses: jdx/mise-action@v5
         with:
-          version: "2026.9.16"
+          version: "2026.9.17"
           cache_key_prefix: mise-lua-v1
       - name: Format
         run: mise run check-format-lua
