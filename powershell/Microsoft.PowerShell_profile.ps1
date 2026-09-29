@@ -1,5 +1,6 @@
 (&mise activate pwsh) | Out-String | Invoke-Expression
 Invoke-Expression (&starship init powershell)
+Set-Alias -Name vim -Value nvim
 
 function Invoke-Starship-PreCommand {
     $location = $executionContext.SessionState.Path.CurrentLocation
