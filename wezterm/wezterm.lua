@@ -44,6 +44,7 @@ local launch_agent = act.InputSelector({
 })
 
 config.keys = {
+  { key = "Enter", mods = "ALT", action = act.DisableDefaultAssignment },
   { key = "a", mods = "ALT", action = launch_agent },
   { key = "v", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "-", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
