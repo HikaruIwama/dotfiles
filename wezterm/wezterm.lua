@@ -7,6 +7,8 @@ config.font = wezterm.font("PlemolJP Console", { weight = "Medium" })
 config.font_size = 12.0
 config.default_prog = { "pwsh.exe" }
 config.default_cwd = "C:\\dev"
+config.initial_cols = 160
+config.initial_rows = 40
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_background_opacity = 0.8
 config.win32_system_backdrop = "Acrylic"
