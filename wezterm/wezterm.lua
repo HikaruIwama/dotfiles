@@ -6,6 +6,7 @@ config.default_prog = { "pwsh.exe" }
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_background_opacity = 0.8
 config.win32_system_backdrop = "Acrylic"
+config.tab_max_width = 32
 
 config.window_frame = {
   inactive_titlebar_bg = "none",
@@ -45,16 +46,20 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     foreground = "#FFFFFF"
   end
 
-  local label = tab.active_pane.title
+  local prefix = ""
+  if tab.active_pane.is_zoomed then
+    prefix = "🔍 "
+  end
+  local suffix = ""
   local pane_count = #wezterm.mux.get_tab(tab.tab_id):panes()
   if pane_count > 1 then
-    label = label .. " [" .. pane_count .. "]"
-  end
-  if tab.active_pane.is_zoomed then
-    label = "🔍 " .. label
+    suffix = " [" .. pane_count .. "]"
   end
 
-  local title = "   " .. wezterm.truncate_right(label, max_width - 1) .. "   "
+  local padding = "   "
+  local available = max_width - wezterm.column_width(padding .. prefix .. suffix .. padding)
+  local label = prefix .. wezterm.truncate_right(tab.active_pane.title, available) .. suffix
+  local title = padding .. label .. padding
 
   return {
     { Background = { Color = background } },
