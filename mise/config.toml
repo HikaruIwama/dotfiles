@@ -1,7 +1,7 @@
 [tools]
 "core:node" = "24.21.0"
 "npm:playwright" = "1.63.0"
-"aqua:pnpm/pnpm" = "12.7.0"
+"aqua:pnpm/pnpm" = "12.8.1"
 "core:python" = "3.14.7"
 "core:rust" = "1.98.1"
 "aqua:astral-sh/uv" = "0.12.19"
