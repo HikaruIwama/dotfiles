@@ -16,6 +16,7 @@ vimcmd_replace_one_symbol = "[<](bold purple)"
 tag_symbol = " tag "
 
 [git_status]
+disabled = true
 ahead = ">"
 behind = "<"
 diverged = "<>"
