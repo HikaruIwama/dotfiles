@@ -1,3 +1,5 @@
+# This workflow is managed by gh actions-lock.
+
 name: Mise
 
 on:
@@ -8,12 +10,14 @@ on:
       - mise/config.toml
       - mise.linux.toml
       - .github/workflows/mise.yml
+      - .github/workflows/actions.lock
   pull_request:
     paths:
       - mise.toml
       - mise/config.toml
       - mise.linux.toml
       - .github/workflows/mise.yml
+      - .github/workflows/actions.lock
 
 permissions:
   contents: read
@@ -22,11 +26,11 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
       - name: Install tools
-        uses: jdx/mise-action@v5
+        uses: jdx/mise-action@v5.0.0
         with:
           version: "2026.9.17"
           install: true
