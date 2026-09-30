@@ -5,5 +5,22 @@ return {
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file tree" },
   },
-  opts = {},
+  opts = {
+    renderer = {
+      highlight_git = "name",
+      icons = {
+        git_placement = "right_align",
+        glyphs = {
+          git = {
+            unstaged = "M",
+            staged = "A",
+            unmerged = "C",
+            renamed = "R",
+            untracked = "U",
+            deleted = "D",
+          },
+        },
+      },
+    },
+  },
 }
