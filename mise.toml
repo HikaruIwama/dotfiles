@@ -3,6 +3,7 @@ min_version = "2026.9.5"
 [tools]
 "aqua:JohnnyMorganz/StyLua" = "2.5.2"
 "aqua:LuaLS/lua-language-server" = "3.19.1"
+"aqua:betterleaks/betterleaks" = "1.9.0"
 "aqua:evilmartians/lefthook" = "2.1.15"
 
 [settings]
@@ -24,6 +25,9 @@ run = "stylua --allow-hidden --check ."
 [tasks.lint-lua]
 run = 'lua-language-server --check=. --configpath=.luarc.json --check_format=pretty --logpath="{{ xdg_cache_home }}/lua-language-server/dotfiles/log" --metapath="{{ xdg_cache_home }}/lua-language-server/dotfiles/meta"'
 run_windows = 'lua-language-server --check_worker=. --configpath=.luarc.json --check_format=pretty --logpath="{{ xdg_cache_home }}/lua-language-server/dotfiles/log" --metapath="{{ xdg_cache_home }}/lua-language-server/dotfiles/meta"'
+
+[tasks.check-secrets]
+run = "betterleaks git --pre-commit --redact --staged --verbose"
 
 [dotfiles]
 "~/.agents/AGENTS.md" = "agents/AGENTS.md"
