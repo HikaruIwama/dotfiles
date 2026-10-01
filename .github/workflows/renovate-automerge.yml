@@ -1,3 +1,5 @@
+# This workflow is managed by gh actions-lock.
+
 name: Renovate automerge
 
 # Renovate only merges during its own runs, which can be hours apart.

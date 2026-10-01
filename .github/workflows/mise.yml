@@ -30,7 +30,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Install tools
-        uses: jdx/mise-action@v5.0.0
+        uses: jdx/mise-action@v5.0.1
         with:
           version: "2026.9.18"
           install: true
