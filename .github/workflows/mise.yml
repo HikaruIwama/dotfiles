@@ -42,7 +42,7 @@ jobs:
           key: ${{ steps.cache-key.outputs.prefix }}${{ hashFiles('mise.toml', 'mise/config.toml', 'mise.linux.toml', '.github/workflows/mise.yml') }}
           restore-keys: ${{ steps.cache-key.outputs.prefix }}
       - name: Install tools
-        uses: jdx/mise-action@v5.0.0
+        uses: jdx/mise-action@v5.0.1
         with:
           version: "2026.9.18"
           install: true
