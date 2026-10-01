@@ -6,6 +6,9 @@ return {
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file tree" },
   },
   opts = {
+    git = {
+      timeout = 2000,
+    },
     renderer = {
       highlight_git = "name",
       icons = {
