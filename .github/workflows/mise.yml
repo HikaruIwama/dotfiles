@@ -41,8 +41,12 @@ jobs:
           path: ~/.local/share/mise
           key: ${{ steps.cache-key.outputs.prefix }}${{ hashFiles('mise.toml', 'mise/config.toml', 'mise.linux.toml', '.github/workflows/mise.yml') }}
           restore-keys: ${{ steps.cache-key.outputs.prefix }}
+      # Windows has no source build fallback, so fail here when a Python
+      # update has no precompiled build yet instead of compiling it on Linux.
       - name: Install tools
         uses: jdx/mise-action@v5.0.1
+        env:
+          MISE_PYTHON_COMPILE: "false"
         with:
           version: "2026.9.18"
           install: true
