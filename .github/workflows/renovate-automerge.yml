@@ -1,0 +1,56 @@
+name: Renovate automerge
+
+# Renovate only merges during its own runs, which can be hours apart.
+# Merge labeled Renovate PRs as soon as their checks pass instead.
+on:
+  workflow_run:
+    workflows: [Mise, Lua]
+    types: [completed]
+
+permissions:
+  checks: read
+  contents: read
+  pull-requests: read
+  statuses: read
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      startsWith(github.event.workflow_run.head_branch, 'renovate/')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: renovate-automerge-${{ github.event.workflow_run.head_branch }}
+    steps:
+      - name: Merge PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # A merge pushed with GITHUB_TOKEN does not trigger the push workflows on main.
+          MERGE_TOKEN: ${{ secrets.RENOVATE_AUTOMERGE_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          number=$(gh pr list --head "$BRANCH" --state open \
+            --json number,author,headRefOid,isDraft,labels \
+            --jq '.[] | select(.author.login == "app/renovate" and .headRefOid == env.SHA and (.isDraft | not) and any(.labels[]; .name == "automerge")) | .number')
+          if [ -z "$number" ]; then
+            echo "No open Renovate PR with the automerge label at $SHA"
+            exit 0
+          fi
+
+          # Mise and Lua can both run on one PR, so wait until every check has passed.
+          pending=$(gh pr checks "$number" --json name,bucket \
+            --jq '[.[] | select(.bucket != "pass" and .bucket != "skipping") | .name] | join(", ")')
+          if [ -n "$pending" ]; then
+            echo "Not merging yet; checks not passed: $pending"
+            exit 0
+          fi
+
+          if [ -z "$MERGE_TOKEN" ]; then
+            echo "::error::RENOVATE_AUTOMERGE_TOKEN secret is not set"
+            exit 1
+          fi
+          GH_TOKEN="$MERGE_TOKEN" gh pr merge "$number" --squash --match-head-commit "$SHA"

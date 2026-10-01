@@ -6,7 +6,8 @@
       "matchManagers": ["mise"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
-      "platformAutomerge": false
+      "platformAutomerge": false,
+      "addLabels": ["automerge"]
     }
   ]
 }
