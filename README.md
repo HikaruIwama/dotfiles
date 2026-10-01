@@ -20,12 +20,5 @@ curl -fsSL https://mise.run | sh
 winget install --id Git.Git -e
 git clone -c core.symlinks=true git@github.com:HikaruIwama/dotfiles.git
 cd dotfiles
-winget import -i winget/packages.json
-```
-
-新しいターミナルを開き、`dotfiles`ディレクトリで実行する。
-
-```powershell
-mise trust
-mise bootstrap
+powershell -ExecutionPolicy Bypass -File install.ps1
 ```
