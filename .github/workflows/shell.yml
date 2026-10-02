@@ -1,0 +1,43 @@
+# This workflow is managed by gh actions-lock.
+
+name: Shell
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.sh'
+      - .editorconfig
+      - mise.toml
+      - .gitattributes
+      - .github/workflows/shell.yml
+      - .github/workflows/actions.lock
+  pull_request:
+    paths:
+      - '**.sh'
+      - .editorconfig
+      - mise.toml
+      - .gitattributes
+      - .github/workflows/shell.yml
+      - .github/workflows/actions.lock
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      MISE_IGNORED_CONFIG_PATHS: ${{ github.workspace }}/mise/config.toml
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@v5.0.1
+        with:
+          version: "2026.9.18"
+          cache_key_prefix: mise-shell-v1
+      - name: Format
+        run: mise run check-format-sh
+      - name: Lint
+        run: mise run lint-sh
