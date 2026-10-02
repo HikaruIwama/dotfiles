@@ -66,4 +66,5 @@ description: 社内開発ドキュメント（README、設計書、ADR、PR・Is
 
 - `references/orthography.md`：表記辞書（送り仮名、カタカナ語、数字、記号、和欧間スペース、用語統一表）
 - `references/ng-phrases.md`：冗長表現、曖昧語、責任がぼやける表現、LLMっぽい表現とその置き換え
-- `references/checklist.md`：レビュー観点、grepパターン、文書種別ごとの追加チェック
+- `references/checklist.md`：レビュー観点、検査スクリプトの使い方、文書種別ごとの追加チェック
+- `scripts/check.py`：表記とNG表現の機械的な検査
