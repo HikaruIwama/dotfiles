@@ -35,7 +35,8 @@ case ${1:-} in
 
     source_file=/etc/apt/sources.list.d/docker.sources
     suite=${UBUNTU_CODENAME:-$VERSION_CODENAME}
-    source_content=$(cat <<EOF
+    source_content=$(
+      cat <<EOF
 Types: deb
 URIs: https://download.docker.com/linux/$ID
 Suites: $suite
@@ -43,7 +44,7 @@ Components: stable
 Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
-)
+    )
     if [[ -e $source_file ]]; then
       [[ $(cat "$source_file") == "$source_content" ]] \
         || fail "$source_file differs from the expected Docker repository configuration. Review it before rerunning mise bootstrap."
