@@ -1,80 +1,117 @@
 ---
 name: pr-workflow
-description: PRを作成するときのワークフロー。シェル確認、事前チェック、baseブランチ決定、タイトル・本文生成、gh pr create実行、検証の手順を定める。
+description: PRを作成するときのワークフロー。事前チェック、baseブランチ決定、タイトル・本文生成、gh pr create実行、検証の手順を定める。
 ---
 
 # PR Workflow
 
 PRを作成するときのワークフロー。エージェントが実行する。対話的な操作は使わない。
 
-## ワークフロー
+## 1. 事前確認
 
-0. 実行シェルを確認する
-   → `references/shell-and-body.md`を参照
+変更内容を把握する。`<base>`がまだ決まっていない場合は、デフォルトブランチ（`main`や`master`）に対して実行する。
 
-   以降のコマンドの書き方はすべてそのシェルに合わせる。
+```sh
+git status --short
+git log --oneline -10
+git diff <base>...HEAD
+```
 
-1. 事前確認
-   → `references/pre-checks.md`を参照
+- どのファイルがどう変わったか
+- コミットが意味のある単位に分割されているか。不適切な場合はPR作成に進む前にユーザーへ相談する
+- デバッグ用コード（`console.log`など）や無関係な変更が混ざっていないか
 
-   - 変更内容の把握（`git status`、`git diff`、コミット履歴）
-   - 既存PRの重複確認（`gh pr list --head`）
-   - PRタイトル・本文の言語判定（リポジトリの慣習に従う）
-   - リポジトリに検証コマンド（lint/test）があれば実行
+同じブランチから既にPRが作られていないか確認する。既存PRがある場合は新規作成せず、既存PRの更新が必要かユーザーに確認する。
 
-2. baseブランチを決定する
+```sh
+gh pr list --head <branch>
+```
 
-   - ユーザー指定があればそれを使う
-   - なければ`gh-merge-base` config、それもなければリポジトリのデフォルトブランチ
+リポジトリにlintやtestのコマンドがあれば実行する。`package.json`のscripts、`Makefile`、`lefthook.yml`、`.github/workflows/`などから特定する。失敗した場合は修正してから進む。失敗したまま作成する場合はユーザーに理由を確認する。
 
-3. タイトル・本文を作成する
-   → `references/title-and-body.md`、`references/repo-template.md`を参照
+PRの言語はリポジトリの慣習に従う。上のコミット履歴と`gh pr list --state all --limit 10`で判定する。
 
-   - リポジトリのPRテンプレがあればそれに従う
-   - なければデフォルトテンプレを使う
-   - 判定した言語で記述する
+- 日本語中心なら日本語、英語中心なら英語で書く。混在している場合は直近の傾向を優先する
+- 判定できない場合（新規リポジトリなど）はユーザーに確認する
 
-4. PRの内容をユーザーに確認する
-   → `references/confirm-content.md`を参照
+## 2. baseブランチを決定する
 
-   - タイトルと本文の全文を提示して承認を得る
-   - Draftで作成するかも同時に確認する
-   - 修正要望があれば内容を調整して再度提示する
-   - まだpushしていない場合、承認前にpushしない
+以下の順で決める。
 
-5. pushする
+1. ユーザーの指定
+2. `git config branch.<current>.gh-merge-base`
+3. リポジトリのデフォルトブランチ（`gh repo view --json defaultBranchRef`）
 
-   承認後、未pushまたはリモートに遅れている場合は`git push -u origin <branch>`でpushする。
+## 3. タイトル・本文を作成する
 
-6. PRを作成する
-   → `references/create-and-verify.md`を参照
+`references/title-and-body.md`に従う。
 
-   本文は必ず一時ファイルに書き出し、`gh pr create --body-file`で非対話的に実行する。
+## 4. PRの内容をユーザーに確認する
 
-7. 検証する
-   → `references/create-and-verify.md`を参照
+base・headブランチ、タイトル、本文の全文をまとめて提示し、承認を得る。タイトルや要約だけの提示では不十分。
 
-   - 作成されたPRのURLをユーザーに提示する
-   - `gh pr checks`でCIの状態を確認する
+```text
+以下の内容でPRを作成します。
+
+base: main ← head: feat/xxx
+
+タイトル:
+feat: ログイン機能を追加
+
+本文:
+---
+## 概要
+
+...
+---
+
+この内容でよいですか？Draftで作成しますか？
+```
+
+- Draftで作成するかを同時に確認する
+- レビュワー・ラベル・アサイニーは、ユーザーから明示的な指示がある場合のみ付与する。推測して提案しない
+- 修正要望があれば調整して再度提示する。承認されるまで繰り返す
+
+## 5. pushする
+
+承認後、未pushまたはリモートに遅れている場合は`git push -u origin <branch>`でpushする。`gh pr create`のpushプロンプトに任せない。
+
+## 6. PRを作成する
+
+本文はファイル書き込みツールで一時ファイルに書き出し、`--body-file`で渡す。`--body`への直接埋め込みや、シェルのリダイレクト・ヒアドキュメントでのファイル作成は、PowerShellでは文字の解釈や文字コード（5.1の`>`はUTF-16LE）で本文が壊れるため使わない。
+
+```sh
+gh pr create --title "<タイトル>" --body-file <本文ファイル> --base <baseブランチ> [オプション]
+```
+
+- Draft：`--draft`
+- レビュワー：`--reviewer <login>`（複数指定可）
+- アサイニー：`--assignee <login>`（自分なら`@me`）
+- ラベル：`--label <name>`（複数指定可）
+
+`--fill`は使わない。PowerShellでタイトルに`$`やバッククォートを含む場合はシングルクォートで囲む。タイトルにダブルクォートは使わない。
+
+作成に失敗した場合：
+
+- 「already exists」系のエラー：既存PRがある。新規作成ではなく既存PRの更新が必要かユーザーに相談する
+- 認証エラー：`gh auth status`で認証状態を確認し、ユーザーに伝える
+- baseブランチが見つからない：指定したbaseが正しいか確認する
+
+## 7. 検証する
+
+本文が文字化けせず、Markdownのセクション構成が保たれているか確認する。`--jq`で値だけを取り出すと、改行がエスケープされずにそのまま読める。
+
+```sh
+gh pr view --json body --jq .body
+gh pr checks
+```
+
+CIが即座に失敗している場合は原因を調べる。最後にPRのURLを提示し、CIの状態や注意点があればあわせて伝える。
 
 ## やってはいけないこと
 
 - force-push、baseブランチへの直接push
-- `--body`への複数行文字列の直接埋め込み（特にPowerShell環境で壊れる）
-- シェルのリダイレクト・ヒアドキュメントでの本文ファイル生成（文字コードが破損する場合がある）
-- 差分を読まずにコミットメッセージだけで本文を書く
-- 既存PRの重複確認をスキップする
+- `--body`への本文の直接埋め込み
+- 承認前のpush、タイトル・本文を提示せずにPRを作成する
 - 対話的な`gh pr create`（プロンプトに頼る実行）
-- レビュワー・ラベルの自動推測
-- タイトル・本文をユーザーに提示せずにPRを作成する
-- 内容確認の承認前にpushする
-- リポジトリに検証コマンド（lint/test）があるのに未実行でPRを作成する
-
-## 参照
-
-- `references/shell-and-body.md`：実行シェルの確認方法と本文の渡し方（`--body-file`必須化）
-- `references/pre-checks.md`：事前確認（変更把握、既存PR重複、言語判定）
-- `references/title-and-body.md`：タイトル規範（Conventional Commits準拠）とデフォルト本文テンプレ
-- `references/repo-template.md`：リポジトリのPRテンプレの検出方法
-- `references/confirm-content.md`：PR内容のユーザー確認（タイトル・本文の提示と承認、Draft確認）
-- `references/create-and-verify.md`：`gh pr create`の実行と作成後の検証
+- レビュワー・ラベルの推測
