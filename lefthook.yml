@@ -9,3 +9,9 @@ pre-push:
       run: mise run check-format-lua
     - name: lint-lua
       run: mise run lint-lua
+    - name: check-format-sh
+      glob: "*.sh"
+      run: mise run check-format-sh
+    - name: lint-sh
+      glob: "*.sh"
+      run: mise run lint-sh
