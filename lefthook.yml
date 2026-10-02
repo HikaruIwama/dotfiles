@@ -6,8 +6,16 @@ pre-commit:
 pre-push:
   jobs:
     - name: check-format-lua
+      glob:
+        - "*.lua"
+        - .luarc.json
+        - .stylua.toml
       run: mise run check-format-lua
     - name: lint-lua
+      glob:
+        - "*.lua"
+        - .luarc.json
+        - .stylua.toml
       run: mise run lint-lua
     - name: check-format-sh
       glob: "*.sh"
