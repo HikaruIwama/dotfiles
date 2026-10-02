@@ -1,6 +1,6 @@
-# Conventional Commits形式のコミットメッセージ
+# コミットメッセージ
 
-コミットメッセージは以下の形式で書く。
+Conventional Commits形式で書く。リポジトリにコミット規約（commitlintの設定、CONTRIBUTINGなど）があればそちらを優先する。
 
 ```text
 type(scope): subject
@@ -33,18 +33,19 @@ footer
 | `ci` | CI設定 | `ci: add GitHub Actions workflow` |
 | `chore` | その他の雑多な変更 | `chore: ignore tmp directory` |
 
-## subjectの書き方
+## subject
 
-- 英語では命令形、日本語では動詞の連体形で始める。
-- 50文字以内。
+- 英語では小文字の命令形で始める（`add`、`fix`など）。過去形（`added`）や大文字始まりにしない。
+- 日本語では「〜を追加」のような体言止めにする。過去形（「追加した」）にしない。
+- 50文字以内を目安にする。
 - 末尾にピリオド（`.`）や句点（`。`）を付けない。
-- 「バグ修正」だけのような曖昧な表現にしない。何をどう変えたかが1文でわかるようにする。
+- 何をどう変えたかが1文でわかるようにする。「バグ修正」や`fix typo`だけのような曖昧な表現にしない。
 
 良い例：
 
 - `feat(auth): add password reset support`
 - `fix(api): handle user ID 0`
-- `refactor(ui): simplify button props`
+- `docs: fix typo in install command`
 
 悪い例：
 
@@ -52,7 +53,7 @@ footer
 - `update README.md.` ← ピリオドが付いている、updateはtypeではない
 - `WIP` ← typeがない、内容が不明
 
-## bodyの書き方
+## body
 
 subjectだけでは理由が伝わらない場合に書く。
 
@@ -60,20 +61,16 @@ subjectだけでは理由が伝わらない場合に書く。
 - 「何を変えたか」ではなく「なぜ変えたか」を書く。
 - 72文字ごとに折り返す。
 
-例：
-
 ```text
 fix(api): handle user ID 0
 
 Validation rejected user ID 0, which exists in production data.
 ```
 
-## footerの書き方
+## footer
 
 - 後方互換性のない変更：`BREAKING CHANGE: 説明`または`type!:`で表す。
 - issueを閉じる場合：`Closes #123`
-
-例：
 
 ```text
 feat(api)!: update response format to v2
