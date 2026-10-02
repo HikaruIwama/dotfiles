@@ -1,5 +1,5 @@
 ---
-name: dependency-guidelines
+name: dependencies
 description: パッケージ・ライブラリ・ツールを依存関係に追加する、置き換える、メジャーバージョンを上げるときの規約。追加の要否、ライセンス、保守状況、脆弱性、lockfileの扱いと、ユーザーへの事前確認を定める。
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: git-commit-workflow
+name: commit
 description: コミットを作成するときのワークフロー。変更の分割、staging、メッセージ作成、検証の手順を定める。
 ---
 
