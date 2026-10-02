@@ -25,6 +25,9 @@ function Invoke-Starship-PreCommand {
     }
 }
 
-function docker {
-    & wsl.exe --exec docker @args
+# Falls back to Docker in WSL only when Docker Desktop is not installed on Windows
+if (-not (Test-Path -LiteralPath "$env:ProgramFiles\Docker\Docker\resources\bin\docker.exe")) {
+    function docker {
+        & wsl.exe --exec docker @args
+    }
 }
