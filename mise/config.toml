@@ -4,7 +4,7 @@
 "aqua:pnpm/pnpm" = "12.8.2"
 "core:python" = "3.14.8"
 "core:rust" = "1.99.0"
-"aqua:astral-sh/uv" = "0.12.21"
+"aqua:astral-sh/uv" = "0.12.22"
 "aqua:cli/cli" = "2.102.0"
 "gitlab:gitlab-org/cli" = "1.120.0"
 "aqua:starship/starship" = "1.26.0"
