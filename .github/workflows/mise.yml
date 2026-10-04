@@ -44,7 +44,7 @@ jobs:
       # Windows has no source build fallback, so fail here when a Python
       # update has no precompiled build yet instead of compiling it on Linux.
       - name: Install tools
-        uses: jdx/mise-action@v5.1.0
+        uses: jdx/mise-action@v5.1.1
         env:
           MISE_PYTHON_COMPILE: "false"
         with:
