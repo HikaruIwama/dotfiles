@@ -1,4 +1,5 @@
 [dotfiles]
+"~/.wslconfig" = "wsl/.wslconfig"
 "~/.wezterm.lua" = "wezterm/wezterm.lua"
 "~/AppData/Local/nvim" = "nvim"
 "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1" = "powershell/Microsoft.PowerShell_profile.ps1"
