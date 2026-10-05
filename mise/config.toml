@@ -11,7 +11,7 @@
 "aqua:go-task/task" = "3.54.0"
 "core:bun" = "1.4.2"
 "aqua:anomalyco/opencode" = "1.18.34"
-"aqua:github/copilot-cli" = "1.0.91"
+"aqua:github/copilot-cli" = "1.0.92"
 "aqua:openai/codex" = "0.156.1"
 "aqua:anthropics/claude-code" = "2.1.289"
 "aqua:neovim/neovim" = "0.12.5"
