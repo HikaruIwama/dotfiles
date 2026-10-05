@@ -16,6 +16,7 @@ dotfiles.root = "."
 run = [
   "mise exec -- playwright install chromium",
   "mise exec -- lefthook install",
+  "mise exec -- node scripts/install-external-skills.mjs --missing-only",
 ]
 
 [tasks.format-lua]
@@ -41,8 +42,12 @@ run = "shellcheck install.sh scripts/setup-docker-linux.sh"
 [tasks.check-secrets]
 run = "betterleaks git --pre-commit --redact --staged --verbose"
 
+[tasks.install-external-skills]
+run = "node scripts/install-external-skills.mjs"
+
 [dotfiles]
 "~/.agents/AGENTS.md" = "agents/AGENTS.md"
+"~/.agents/.skill-lock.json" = "agents/.skill-lock.json"
 "~/.agents/skills/*" = "agents/skills/*"
 "~/.gitconfig" = "git/.gitconfig"
 "~/.config/starship.toml" = "starship/starship.toml"
