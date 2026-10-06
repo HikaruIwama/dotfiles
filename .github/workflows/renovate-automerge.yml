@@ -6,7 +6,7 @@ name: Renovate automerge
 # Merge labeled Renovate PRs as soon as their checks pass instead.
 on:
   workflow_run:
-    workflows: [Mise, Lua]
+    workflows: [Mise, Lua, Shell]
     types: [completed]
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
             exit 0
           fi
 
-          # Mise and Lua can both run on one PR, so wait until every check has passed.
+          # Several of these workflows can run on one PR, so wait until every check has passed.
           pending=$(gh pr checks "$number" --json name,bucket \
             --jq '[.[] | select(.bucket != "pass" and .bucket != "skipping") | .name] | join(", ")')
           if [ -n "$pending" ]; then
