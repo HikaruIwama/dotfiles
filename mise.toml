@@ -42,6 +42,9 @@ run = "shellcheck install.sh scripts/setup-docker-linux.sh"
 [tasks.check-secrets]
 run = "betterleaks git --pre-commit --redact --staged --verbose"
 
+[tasks.test-mjs]
+run = "node --test"
+
 [tasks.install-external-skills]
 run = "node scripts/install-external-skills.mjs"
 
