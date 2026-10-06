@@ -6,7 +6,7 @@ name: Renovate automerge
 # Merge labeled Renovate PRs as soon as their checks pass instead.
 on:
   workflow_run:
-    workflows: [Mise, Lua, Shell]
+    workflows: [Mise, Lua, Shell, JavaScript]
     types: [completed]
 
 permissions:

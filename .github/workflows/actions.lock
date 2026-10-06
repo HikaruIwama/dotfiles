@@ -3,6 +3,9 @@
 # Docs: https://gh.io/actions-lockfile
 version: 'v0.0.2'
 workflows:
+    '.github/workflows/javascript.yml':
+        - 'actions/checkout@v7.0.1'
+        - 'jdx/mise-action@v5.1.1'
     '.github/workflows/lua.yml':
         - 'actions/checkout@v7.0.1'
         - 'jdx/mise-action@v5.1.1'

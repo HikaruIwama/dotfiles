@@ -1,0 +1,42 @@
+# This workflow is managed by gh actions-lock.
+
+name: JavaScript
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.mjs'
+      - mise.toml
+      - mise/config.toml
+      - .github/workflows/javascript.yml
+      - .github/workflows/actions.lock
+  pull_request:
+    paths:
+      - '**.mjs'
+      - mise.toml
+      - mise/config.toml
+      - .github/workflows/javascript.yml
+      - .github/workflows/actions.lock
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      # Node is pinned in mise/config.toml, so install only Node from it
+      # instead of every tool there.
+      MISE_TASK_RUN_AUTO_INSTALL: "false"
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@v5.1.1
+        with:
+          version: "2026.10.3"
+          install_args: core:node
+          cache_key_prefix: mise-javascript-v1
+      - name: Test
+        run: mise run test-mjs
