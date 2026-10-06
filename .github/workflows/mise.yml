@@ -22,9 +22,16 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   install:
     runs-on: ubuntu-latest
+    outputs:
+      prefix: ${{ steps.cache-key.outputs.prefix }}
+      key: ${{ steps.restore.outputs.cache-primary-key }}
+      cache-hit: ${{ steps.restore.outputs.cache-hit }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -61,3 +68,22 @@ jobs:
         with:
           path: ~/.local/share/mise
           key: ${{ steps.restore.outputs.cache-primary-key }}
+
+  # Old caches fill the 10 GB limit before they expire.
+  delete-old-caches:
+    needs: install
+    if: github.ref == 'refs/heads/main' && needs.install.outputs.cache-hit != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Delete old tool caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PREFIX: ${{ needs.install.outputs.prefix }}
+          KEY: ${{ needs.install.outputs.key }}
+        run: |
+          gh cache list --ref refs/heads/main --key "$PREFIX" --limit 100 --json id,key \
+            --jq '.[] | select(.key != env.KEY) | .id' |
+            xargs -r -n1 gh cache delete
