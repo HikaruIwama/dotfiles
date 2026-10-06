@@ -1,0 +1,29 @@
+# This workflow is managed by gh actions-lock.
+
+name: Delete old caches
+
+# Each mise config change saves a new cache, and old ones fill the 10 GB limit before they expire.
+on:
+  workflow_run:
+    workflows: [Mise, Lua, Shell, JavaScript]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  actions: write
+
+jobs:
+  delete:
+    if: github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: delete-old-caches
+    steps:
+      - name: Delete all but the latest cache per prefix
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh cache list --ref refs/heads/main --key mise- --limit 100 --json id,key,createdAt \
+            --jq 'group_by(.key | split("-")[:3]) | .[] | sort_by(.createdAt) | .[:-1][] | .id' |
+            xargs -r -n1 gh cache delete
