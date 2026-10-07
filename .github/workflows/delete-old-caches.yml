@@ -8,6 +8,8 @@ on:
     workflows: [Mise, Lua, Shell, JavaScript]
     types: [completed]
     branches: [main]
+  pull_request:
+    types: [closed]
 
 permissions:
   actions: write
@@ -26,4 +28,17 @@ jobs:
         run: |
           gh cache list --ref refs/heads/main --key mise- --limit 100 --json id,key,createdAt \
             --jq 'group_by(.key | split("-")[:3]) | .[] | sort_by(.createdAt) | .[:-1][] | .id' |
+            xargs -r -n1 gh cache delete
+
+  delete-pr:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete caches of the merged PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REF: refs/pull/${{ github.event.pull_request.number }}/merge
+        run: |
+          gh cache list --ref "$REF" --limit 100 --json id --jq '.[].id' |
             xargs -r -n1 gh cache delete
