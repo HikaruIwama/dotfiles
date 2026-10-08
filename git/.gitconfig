@@ -1,3 +1,28 @@
 [user]
 	name = HikaruIwama
 	email = 174074039+HikaruIwama@users.noreply.github.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	autocrlf = input
+
+[pull]
+	ff = only
+
+[push]
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+
+[branch]
+	sort = -committerdate
