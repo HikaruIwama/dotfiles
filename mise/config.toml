@@ -1,6 +1,6 @@
 [tools]
 "core:node" = "24.21.0"
-"npm:playwright" = "1.63.0"
+"npm:playwright" = "1.64.0"
 "aqua:pnpm/pnpm" = "12.10.1"
 "core:python" = "3.14.8"
 "core:rust" = { version = "1.99.0", components = "rust-analyzer" }
