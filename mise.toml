@@ -16,7 +16,7 @@ dotfiles.root = "."
 run = [
   "mise exec -- playwright install chromium",
   "mise exec -- lefthook install",
-  "mise exec -- node scripts/install-external-skills.mjs --missing-only",
+  "mise exec -- node scripts/update-external-skills.mjs",
 ]
 
 [tasks.format-lua]

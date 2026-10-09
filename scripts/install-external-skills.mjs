@@ -3,7 +3,7 @@ import { readFileSync, realpathSync, existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
-export function installSkills(lock, run, shouldInstall = () => true) {
+export function validateSkillLock(lock) {
   if (lock === null || typeof lock !== 'object' ||
       !Number.isInteger(lock.version) || lock.version < 3 ||
       lock.skills === null || typeof lock.skills !== 'object' || Array.isArray(lock.skills)) {
@@ -14,7 +14,6 @@ export function installSkills(lock, run, shouldInstall = () => true) {
       agents.some((agent) => typeof agent !== 'string' || !/^[a-z][a-z0-9-]*$/.test(agent))) {
     throw new Error('Invalid lastSelectedAgents in global skills lockfile');
   }
-  const bySource = new Map();
   const entries = [];
   for (const [skill, entry] of Object.entries(lock.skills)) {
     if (typeof skill !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(skill)) {
@@ -30,6 +29,12 @@ export function installSkills(lock, run, shouldInstall = () => true) {
     entries.push([skill, entry]);
   }
 
+  return { agents, entries };
+}
+
+export function installSkills(lock, run, shouldInstall = () => true) {
+  const { agents, entries } = validateSkillLock(lock);
+  const bySource = new Map();
   for (const [skill, entry] of entries) {
     if (!shouldInstall(skill, agents)) continue;
     const source = entry.ref ? `${entry.sourceUrl}#${entry.ref}` : entry.sourceUrl;
@@ -50,7 +55,7 @@ export function installSkills(lock, run, shouldInstall = () => true) {
   }
 }
 
-function isSkillInstalled(skill, agents) {
+export function isSkillInstalled(skill, agents) {
   const shared = join(homedir(), '.agents', 'skills', skill);
   if (!existsSync(join(shared, 'SKILL.md'))) return false;
   if (!agents.includes('claude-code')) return true;
