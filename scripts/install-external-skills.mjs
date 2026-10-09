@@ -1,7 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync, realpathSync, existsSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 
 export function validateSkillLock(lock) {
   if (lock === null || typeof lock !== 'object' ||
@@ -74,8 +74,11 @@ if (import.meta.main) {
   }
   const lock = JSON.parse(readFileSync(new URL('../agents/.skill-lock.json', import.meta.url), 'utf8'));
   installSkills(lock, (command, args) => {
-    const executable = process.platform === 'win32' ? 'npx.exe' : command;
-    const result = spawnSync(executable, args, {
+    const executable = process.platform === 'win32' ? process.execPath : command;
+    const executableArgs = process.platform === 'win32'
+      ? [join(dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npx-cli.js'), ...args]
+      : args;
+    const result = spawnSync(executable, executableArgs, {
       stdio: 'inherit',
     });
     if (result.error) throw result.error;

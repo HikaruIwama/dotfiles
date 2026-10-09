@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { isDeepStrictEqual } from 'node:util';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { installSkills, isSkillInstalled, validateSkillLock } from './install-external-skills.mjs';
 
 export function updateExternalSkills(lock, stateHome, run, isInstalled = isSkillInstalled) {
@@ -42,8 +42,11 @@ if (import.meta.main) {
   const lock = JSON.parse(readFileSync(new URL('../agents/.skill-lock.json', import.meta.url), 'utf8'));
   const stateHome = join(process.env.XDG_STATE_HOME || join(homedir(), '.local', 'state'), 'dotfiles');
   updateExternalSkills(lock, stateHome, (command, args, env) => {
-    const executable = process.platform === 'win32' ? 'npx.exe' : command;
-    const result = spawnSync(executable, args, { stdio: 'inherit', env });
+    const executable = process.platform === 'win32' ? process.execPath : command;
+    const executableArgs = process.platform === 'win32'
+      ? [join(dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npx-cli.js'), ...args]
+      : args;
+    const result = spawnSync(executable, executableArgs, { stdio: 'inherit', env });
     if (result.error) throw result.error;
     return result.status ?? 1;
   });
