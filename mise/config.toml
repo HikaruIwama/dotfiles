@@ -14,7 +14,7 @@
 "aqua:github/copilot-cli" = "1.0.95"
 "aqua:openai/codex" = "0.156.1"
 "aqua:anthropics/claude-code" = "2.1.295"
-"aqua:neovim/neovim" = "0.12.5"
+"aqua:neovim/neovim" = "0.12.6"
 "aqua:tree-sitter/tree-sitter" = "0.27.1"
 "aqua:BurntSushi/ripgrep" = "15.2.0"
 "aqua:LuaLS/lua-language-server" = "3.19.1"
