@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
       - uses: jdx/mise-action@v5.1.2
         with:
-          version: "2026.10.9"
+          version: "2026.10.10"
           install_args: core:node
           cache_key_prefix: mise-javascript-v1
       - name: Test
