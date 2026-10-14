@@ -1,5 +1,13 @@
 # dotfiles
 
+## SSH鍵
+
+```sh
+ssh-keygen -t ed25519
+```
+
+公開鍵をGitHubにAuthentication KeyとSigning Keyの両方で登録し、`git/allowed_signers`にも追加する。
+
 ## Linux（Ubuntu/Debian）
 
 ```sh
