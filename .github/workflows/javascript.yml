@@ -33,9 +33,9 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: jdx/mise-action@v5.1.2
+      - uses: jdx/mise-action@v5.2.0
         with:
-          version: "2026.10.10"
+          version: "2026.10.12"
           install_args: core:node
           cache_key_prefix: mise-javascript-v1
       - name: Test
