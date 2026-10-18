@@ -1,6 +1,6 @@
 ---
 name: commit
-description: コミットを作成するときのワークフロー。変更の分割、staging、メッセージ作成、検証の手順を定める。
+description: コミットを作成するときのワークフロー。ブランチ確認、変更の分割、staging、メッセージ作成、検証の手順を定める。
 ---
 
 # Git Commit Workflow
@@ -10,10 +10,17 @@ description: コミットを作成するときのワークフロー。変更の�
 ## 1. 現状を把握する
 
 ```sh
-git status --short
+git status --short --branch
+git branch --show-current
 git diff HEAD
 git log --oneline -10
 ```
+
+現在のブランチが、依頼された作業のコミット先として正しいか確認する。ユーザーの指定とリポジトリのブランチ運用規約を優先する。
+
+- デフォルトブランチや共有ブランチ（`main`、`master`、`develop`など）への直接コミットは、ユーザーの明示的な指示やリポジトリの規約で認められている場合に限る。それ以外はstaging前に作業ブランチを作成する
+- detached HEADの場合は、staging前に作業ブランチを作成する。detached HEADのままコミットする明示的な指示がある場合はそれに従う
+- 依頼と異なる作業のブランチにいる場合や、コミット先を判断できない場合は、stagingやコミットに進まずユーザーに確認する
 
 既にstaging済みの変更があれば、今回のコミットに含めてよいか確認する。判断できない場合はユーザーに確認する。
 
