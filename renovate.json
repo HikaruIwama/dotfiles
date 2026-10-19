@@ -9,6 +9,14 @@
       "automerge": true,
       "platformAutomerge": false,
       "addLabels": ["automerge"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchDepNames": ["jdx/mise"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "platformAutomerge": false,
+      "addLabels": ["automerge"]
     }
   ]
 }
