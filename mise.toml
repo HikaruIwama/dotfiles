@@ -17,6 +17,9 @@ run = [
   "mise exec -- playwright install chromium",
   "mise exec -- lefthook install",
   "mise exec -- node scripts/update-external-skills.mjs",
+  "mise exec -- gh extension install github/gh-actions-lock",
+  "mise exec -- gh extension install github/gh-stack",
+  "mise exec -- gh extension upgrade --all",
 ]
 
 [tasks.format-lua]
