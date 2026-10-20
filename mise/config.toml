@@ -6,7 +6,7 @@
 "core:rust" = { version = "1.99.1", components = "rust-analyzer" }
 "aqua:astral-sh/uv" = "0.13.3"
 "aqua:cli/cli" = "2.102.0"
-"gitlab:gitlab-org/cli" = "1.123.0"
+"gitlab:gitlab-org/cli" = "1.124.0"
 "aqua:starship/starship" = "1.27.0"
 "aqua:go-task/task" = "3.54.0"
 "core:bun" = "1.4.3"
