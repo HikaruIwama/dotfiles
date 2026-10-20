@@ -20,6 +20,6 @@
 "aqua:LuaLS/lua-language-server" = "3.19.2"
 "npm:@vtsls/language-server" = "0.3.0"
 "npm:basedpyright" = "1.40.2"
-"core:go" = "1.27.2"
+"core:go" = "1.27.3"
 "go:golang.org/x/tools/gopls" = "0.24.0"
 "github:yusukebe/ax" = "0.1.25"
