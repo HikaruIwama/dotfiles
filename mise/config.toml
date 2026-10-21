@@ -13,7 +13,7 @@
 "aqua:anomalyco/opencode" = "1.19.3"
 "aqua:github/copilot-cli" = "1.0.100"
 "npm:@openai/codex" = "0.163.0"
-"aqua:anthropics/claude-code" = "2.1.305"
+"aqua:anthropics/claude-code" = "2.1.306"
 "aqua:neovim/neovim" = "0.12.6"
 "aqua:tree-sitter/tree-sitter" = "0.27.1"
 "aqua:BurntSushi/ripgrep" = "15.2.0"
