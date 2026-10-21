@@ -54,6 +54,15 @@
       "skillFolderHash": "bde7bcf5a96697d31aa55b33565fa0ff002167ca",
       "installedAt": "2026-10-20T05:38:06.073Z",
       "updatedAt": "2026-10-20T05:38:06.073Z"
+    },
+    "security-audit": {
+      "source": "cloudflare/security-audit-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cloudflare/security-audit-skill.git",
+      "skillPath": "skills/security-audit/SKILL.md",
+      "skillFolderHash": "ccbc33ed119b28c3ef7b44a7e2081ab191ad63af",
+      "installedAt": "2026-10-21T05:05:29.046Z",
+      "updatedAt": "2026-10-21T05:05:29.046Z"
     }
   },
   "dismissed": {
@@ -65,6 +74,7 @@
     "codex",
     "cursor",
     "droid",
+    "fx",
     "gemini-cli",
     "github-copilot",
     "kilo",
