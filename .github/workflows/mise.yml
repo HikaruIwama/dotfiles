@@ -9,6 +9,7 @@ on:
       - mise.toml
       - mise/config.toml
       - mise.linux.toml
+      - mise.windows.toml
       - .github/workflows/mise.yml
       - .github/workflows/actions.lock
   pull_request:
@@ -16,6 +17,7 @@ on:
       - mise.toml
       - mise/config.toml
       - mise.linux.toml
+      - mise.windows.toml
       - .github/workflows/mise.yml
       - .github/workflows/actions.lock
 
@@ -24,7 +26,14 @@ permissions:
 
 jobs:
   install:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -39,7 +48,7 @@ jobs:
         uses: actions/cache/restore@v6.1.0
         with:
           path: ~/.local/share/mise
-          key: ${{ steps.cache-key.outputs.prefix }}${{ hashFiles('mise.toml', 'mise/config.toml', 'mise.linux.toml', '.github/workflows/mise.yml') }}
+          key: ${{ steps.cache-key.outputs.prefix }}${{ hashFiles('mise.toml', 'mise/config.toml', 'mise.linux.toml', 'mise.windows.toml', '.github/workflows/mise.yml') }}
           restore-keys: ${{ steps.cache-key.outputs.prefix }}
       # Windows has no source build fallback, so fail here when a Python
       # update has no precompiled build yet instead of compiling it on Linux.
@@ -49,6 +58,7 @@ jobs:
           MISE_PYTHON_COMPILE: "false"
         with:
           version: "2026.10.17"
+          mise_dir: ~/.local/share/mise
           install: true
           cache: false
       # A PR's cache is visible only to that PR, so save from main only.
