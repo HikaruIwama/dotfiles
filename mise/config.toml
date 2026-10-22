@@ -9,7 +9,7 @@
 "gitlab:gitlab-org/cli" = "1.124.0"
 "aqua:starship/starship" = "1.27.0"
 "aqua:go-task/task" = "3.54.0"
-"core:bun" = "1.4.3"
+"core:bun" = "1.4.4"
 "aqua:anomalyco/opencode" = "1.19.3"
 "aqua:github/copilot-cli" = "1.0.102"
 "npm:@openai/codex" = "0.163.0"
