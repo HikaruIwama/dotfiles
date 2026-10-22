@@ -40,14 +40,16 @@ jobs:
           persist-credentials: false
       # mise-action only restores an exact key, so every tool update reinstalled everything.
       # Restore the latest main cache instead and install only what changed.
-      - name: Set cache key
+      - name: Set cache key and path
         id: cache-key
-        run: echo "prefix=mise-install-v2-$ImageOS-$RUNNER_ARCH-" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "prefix=mise-install-v2-$ImageOS-$RUNNER_ARCH-" >> "$GITHUB_OUTPUT"
+          echo "path=${LOCALAPPDATA:-$HOME/.local/share}/mise" >> "$GITHUB_OUTPUT"
       - name: Restore tools
         id: restore
         uses: actions/cache/restore@v6.1.0
         with:
-          path: ~/.local/share/mise
+          path: ${{ steps.cache-key.outputs.path }}
           key: ${{ steps.cache-key.outputs.prefix }}${{ hashFiles('mise.toml', 'mise/config.toml', 'mise.linux.toml', 'mise.windows.toml', '.github/workflows/mise.yml') }}
           restore-keys: ${{ steps.cache-key.outputs.prefix }}
       # Windows has no source build fallback, so fail here when a Python
@@ -58,7 +60,6 @@ jobs:
           MISE_PYTHON_COMPILE: "false"
         with:
           version: "2026.10.17"
-          mise_dir: ~/.local/share/mise
           install: true
           cache: false
       # A PR's cache is visible only to that PR, so save from main only.
@@ -69,5 +70,5 @@ jobs:
         if: github.ref == 'refs/heads/main' && steps.restore.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6.1.0
         with:
-          path: ~/.local/share/mise
+          path: ${{ steps.cache-key.outputs.path }}
           key: ${{ steps.restore.outputs.cache-primary-key }}
