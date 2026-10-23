@@ -10,7 +10,7 @@
 "aqua:starship/starship" = "1.27.0"
 "aqua:go-task/task" = "3.54.0"
 "core:bun" = "1.4.4"
-"aqua:anomalyco/opencode" = "1.19.4"
+"aqua:anomalyco/opencode" = "2.1.4"
 "aqua:github/copilot-cli" = "1.0.103"
 "npm:@openai/codex" = "0.164.0"
 "aqua:anthropics/claude-code" = "2.1.309"
