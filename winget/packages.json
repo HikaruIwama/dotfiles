@@ -12,6 +12,7 @@
         { "PackageIdentifier": "Git.Git" },
         { "PackageIdentifier": "jdx.mise" },
         { "PackageIdentifier": "Microsoft.PowerShell" },
+        { "PackageIdentifier": "StablyAI.Orca" },
         { "PackageIdentifier": "wez.wezterm" }
       ]
     }
