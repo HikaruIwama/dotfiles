@@ -59,7 +59,7 @@ jobs:
         env:
           MISE_PYTHON_COMPILE: "false"
         with:
-          version: "2026.10.21"
+          version: "2026.10.22"
           install: true
           cache: false
       # A PR's cache is visible only to that PR, so save from main only.

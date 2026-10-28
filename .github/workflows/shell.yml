@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
       - uses: jdx/mise-action@v5.2.4
         with:
-          version: "2026.10.21"
+          version: "2026.10.22"
           cache_key_prefix: mise-shell-v1
       - name: Format
         run: mise run check-format-sh
