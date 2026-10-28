@@ -1,5 +1,5 @@
 [tools]
-"core:node" = "24.22.2"
+"core:node" = "26.13.0"
 "npm:playwright" = "1.64.1"
 "aqua:pnpm/pnpm" = "12.16.1"
 "core:python" = "3.15.2"
