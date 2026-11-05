@@ -63,6 +63,15 @@
       "skillFolderHash": "ccbc33ed119b28c3ef7b44a7e2081ab191ad63af",
       "installedAt": "2026-10-21T05:05:29.046Z",
       "updatedAt": "2026-10-21T05:05:29.046Z"
+    },
+    "stack-diagram": {
+      "source": "caru-ini/stack-diagram",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/caru-ini/stack-diagram.git",
+      "skillPath": "skills/stack-diagram/SKILL.md",
+      "skillFolderHash": "663418e2ebe678f4d1300ff3052f3643ef6aa2a2",
+      "installedAt": "2026-11-05T00:33:55.198Z",
+      "updatedAt": "2026-11-05T00:33:55.198Z"
     }
   },
   "dismissed": {
