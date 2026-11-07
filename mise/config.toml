@@ -15,7 +15,7 @@
 "npm:@openai/codex" = "0.167.0"
 "aqua:anthropics/claude-code" = "2.1.319"
 "aqua:neovim/neovim" = "0.12.6"
-"aqua:tree-sitter/tree-sitter" = "0.27.1"
+"aqua:tree-sitter/tree-sitter" = "0.27.2"
 "aqua:BurntSushi/ripgrep" = "15.2.0"
 "aqua:LuaLS/lua-language-server" = "3.19.2"
 "npm:@vtsls/language-server" = "0.3.0"
