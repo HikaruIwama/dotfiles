@@ -66,6 +66,14 @@ config.keys = {
   { key = "s", mods = "ALT", action = act.PaneSelect },
 }
 
+config.mouse_bindings = {
+  {
+    event = { Down = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = act.PasteFrom("Clipboard"),
+  },
+}
+
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local background = "#5c6d74"
   local foreground = "#FFFFFF"
