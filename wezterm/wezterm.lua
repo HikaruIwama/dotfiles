@@ -13,6 +13,7 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_background_opacity = 0.8
 config.win32_system_backdrop = "Acrylic"
 config.tab_max_width = 32
+config.scrollback_lines = 50000
 
 config.window_frame = {
   inactive_titlebar_bg = "none",
