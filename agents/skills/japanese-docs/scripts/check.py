@@ -154,8 +154,9 @@ CHECKS.append(
 COMPILED = [(name, ref, re.compile(pat), raw) for name, ref, pat, raw in CHECKS]
 
 MAX_SENTENCE_LENGTH = 100
-MAX_CLAUSE_COMMAS = 2
-CLAUSE_COMMA = re.compile(r"(?:[してでがりばらく]|ところ|ため)、")
+MAX_KANA_COMMAS = 2
+# 漢字やカタカナの後の読点は名詞の並列が多いので数えない
+KANA_COMMA = re.compile(r"[぀-ゟ]、")
 GUESS = re.compile(r"可能性がある|かもしれない|と考えられる|と思われる|と推測される|だろう")
 HEDGE = re.compile(r"ことがある|場合がある|可能性がある")
 CONJUNCTION = re.compile(r"(さらに|また|加えて)、")
@@ -163,6 +164,7 @@ POLITE = re.compile(r"(?:です|ます|でした|ました|ません|ましょ�
 PLAIN = re.compile(r"[るただうい]。$")
 
 ONE_THING = "references/sentence.md 一文に一つのことを書く"
+COMMA = "references/sentence.md 読点は区切りが要るところにだけ打つ"
 CONFIDENCE = "references/sentence.md 確かさは文末で一度だけ示す"
 RELATION = "references/sentence.md 前の文とのつながりを一つに決める"
 STYLE = "references/conventions.md 文体"
@@ -180,8 +182,8 @@ def sentence_hits(sentence):
     if len(masked) > MAX_SENTENCE_LENGTH:
         hits.append((lineno, col, "長い文", ONE_THING, f"{snippet(text)}（{len(masked)}字）"))
     own = masked_text(outside_brackets(sentence))
-    if len(CLAUSE_COMMA.findall(own)) > MAX_CLAUSE_COMMAS:
-        hits.append((lineno, col, "節の連鎖", ONE_THING, snippet(text)))
+    if len(KANA_COMMA.findall(own)) > MAX_KANA_COMMAS:
+        hits.append((lineno, col, "読点が多い", COMMA, snippet(text)))
     guesses = GUESS.findall(own)
     if len(guesses) > 1:
         hits.append((lineno, col, "推量の重ね", CONFIDENCE, "＋".join(guesses)))

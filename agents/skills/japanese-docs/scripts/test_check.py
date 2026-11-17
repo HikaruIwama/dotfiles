@@ -132,13 +132,19 @@ class SentenceTest(unittest.TestCase):
         text = "あ" * 60 + "\n" + "い" * 60 + "。\n"
         self.assertEqual(categories(text), ["長い文"])
 
-    def test_three_clauses_joined_by_commas(self):
+    def test_three_commas_after_kana(self):
         self.assertEqual(
             run("変更し、再起動して、確認したが、遅い。短い。\n"),
-            [(1, 1, "節の連鎖", "変更し、再起動して、確認したが、遅い。")],
+            [(1, 1, "読点が多い", "変更し、再起動して、確認したが、遅い。")],
         )
 
-    def test_two_clause_commas_are_allowed(self):
+    def test_three_commas_after_topic_and_nouns_ending_in_kana(self):
+        self.assertEqual(
+            categories("見出しには、扱うもの、答える問い、情報の種類を書く。\n"),
+            ["読点が多い"],
+        )
+
+    def test_two_commas_after_kana_are_allowed(self):
         self.assertEqual(run("変更し、再起動して、確認した。\n"), [])
 
     def test_commas_in_an_enumeration_are_not_counted(self):
@@ -200,7 +206,14 @@ class StyleTest(unittest.TestCase):
 
 class ReferenceTest(unittest.TestCase):
     def test_every_reference_points_to_an_existing_heading(self):
-        for name, ref, *_ in check.CHECKS:
+        line_refs = [(name, ref) for name, ref, *_ in check.CHECKS]
+        prose_refs = [
+            (name, value)
+            for name, value in vars(check).items()
+            if isinstance(value, str) and re.match(r"^\S+\.md \S", value)
+        ]
+        self.assertTrue(prose_refs)
+        for name, ref in line_refs + prose_refs:
             filename, section = ref.split(" ", 1)
             path = os.path.join(SKILL_DIR, filename)
             with self.subTest(name=name, ref=ref):
