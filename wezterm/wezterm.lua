@@ -75,7 +75,7 @@ config.mouse_bindings = {
   },
 }
 
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+wezterm.on("format-tab-title", function(tab, _, _, _, _, max_width)
   local background = "#5c6d74"
   local foreground = "#FFFFFF"
 
