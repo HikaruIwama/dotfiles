@@ -1,6 +1,6 @@
 ---
 name: typescript
-description: TypeScriptのコードを書く、レビューする、リファクタリングするときの型の規約。型注釈の付け方と、型アサーション・any・unknownの扱いを定める。
+description: TypeScriptのコードを書く、レビューする、リファクタリングするときの型の規約。型注釈の付け方と、型アサーションやany、unknownの扱いを定める。
 ---
 
 # TypeScriptの型の規約
