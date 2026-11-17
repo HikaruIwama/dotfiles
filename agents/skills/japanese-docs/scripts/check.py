@@ -38,7 +38,7 @@ CHECKS = [
     ),
     (
         "和欧間スペース",
-        "references/conventions.md チームの決定事項",
+        "references/conventions.md カタカナ語の長音とスペース",
         rf"[A-Za-z0-9`] [{JA}]|[{JA}] [A-Za-z0-9`]",
         True,
     ),
@@ -70,19 +70,19 @@ CHECKS = [
     ),
     (
         "確信度",
-        "references/sentence.md 確信度は文末で一度だけ示す",
+        "references/sentence.md 確かさは文末で一度だけ示す",
         r"に他ならない|ケースバイケース|一概には言えません",
         False,
     ),
     (
         "出典不明",
-        "references/sentence.md 動作主を読み手がたどれるようにする",
+        "references/sentence.md 誰がするのかをたどれるようにする",
         r"業界の専門家によると|調査結果が示すように",
         False,
     ),
     (
         "受動態",
-        "references/sentence.md 動作主を読み手がたどれるようにする",
+        "references/sentence.md 誰がするのかをたどれるようにする",
         r"が求められ|が必要とされ|とされてい|が望まれ",
         False,
     ),
@@ -100,20 +100,20 @@ CHECKS = [
     ),
     (
         "抽象語",
-        "references/sentence.md 具体的な動作は具体的な語で書く",
+        "references/sentence.md 何をするかを具体的な言葉で書く",
         r"多角的|包括的|非常に|極めて|大いに|という形|という観点から|という側面から",
         False,
     ),
     (
         "ビジネスジャーゴン",
-        "references/sentence.md 具体的な動作は具体的な語で書く",
+        "references/sentence.md 何をするかを具体的な言葉で書く",
         r"レバレッジ|ソリューション|イノベーティブ|コミットする|アライン"
         r"|ディープダイブ|スケールする|ピボット",
         False,
     ),
     (
         "太字",
-        "SKILL.md 構成と論証の規則",
+        "SKILL.md 文書の組み立て",
         r"\*\*[^*\s][^*]*\*\*|__[^_\s][^_]*__",
         False,
     ),
@@ -162,9 +162,9 @@ CONJUNCTION = re.compile(r"(さらに|また|加えて)、")
 POLITE = re.compile(r"(?:です|ます|でした|ました|ません|ましょう|でしょう|ください)[かね]?。$")
 PLAIN = re.compile(r"[るただうい]。$")
 
-ONE_THING = "references/sentence.md 一文に一つの事柄を書く"
-CONFIDENCE = "references/sentence.md 確信度は文末で一度だけ示す"
-RELATION = "references/sentence.md 文と文の関係を一つ選んで示す"
+ONE_THING = "references/sentence.md 一文に一つのことを書く"
+CONFIDENCE = "references/sentence.md 確かさは文末で一度だけ示す"
+RELATION = "references/sentence.md 前の文とのつながりを一つに決める"
 STYLE = "references/conventions.md 文体"
 
 
