@@ -32,7 +32,6 @@ local agents = {
   { id = "claude", label = "Claude Code" },
   { id = "codex", label = "Codex" },
   { id = "opencode", label = "opencode" },
-  { id = "copilot", label = "GitHub Copilot" },
 }
 
 local launch_agent = act.InputSelector({
