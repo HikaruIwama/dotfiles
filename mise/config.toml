@@ -16,7 +16,7 @@
 "aqua:anthropics/claude-code" = "2.1.331"
 "aqua:neovim/neovim" = "0.12.6"
 "aqua:tree-sitter/tree-sitter" = "0.27.2"
-"aqua:BurntSushi/ripgrep" = "15.2.0"
+"aqua:BurntSushi/ripgrep" = "16.0.0"
 "aqua:LuaLS/lua-language-server" = "3.19.2"
 "npm:@vtsls/language-server" = "0.3.0"
 "npm:basedpyright" = "1.40.2"
