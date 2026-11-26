@@ -10,7 +10,7 @@
 "aqua:starship/starship" = "1.27.0"
 "aqua:go-task/task" = "3.54.0"
 "core:bun" = "1.4.5"
-"aqua:anomalyco/opencode" = "1.19.6"
+"aqua:anomalyco/opencode" = "2.4.2"
 "npm:@openai/codex" = "0.172.0"
 "aqua:anthropics/claude-code" = "2.1.332"
 "aqua:neovim/neovim" = "0.12.6"
